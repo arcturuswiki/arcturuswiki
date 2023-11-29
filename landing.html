@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcturus Wiki and Database</title>
+    <!-- The style.css file allows you to change the look of your web pages.
+         If you include the next line in all your web pages, they will all share the same look.
+         This makes it easier to make new pages for your site. -->
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+    <style>
+      img {
+        max-width: 1024px;
+        max-height:768px;
+        width: 100%;
+        height: 100%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+    <script>
+    let currlang;
+
+    function japaneseLang() {
+      for(let en of document.querySelectorAll('.txt-en'))
+      {
+        en.style.display = 'none';
+      }
+      for(let jp of document.querySelectorAll('.txt-jp'))
+      {
+        jp.style.display = 'inline';
+      }
+      for(let kr of document.querySelectorAll('.txt-kr'))
+      {
+        kr.style.display = 'none';
+      }
+      currlang = "jp";
+    }
+    function englishLang() {
+      for(let en of document.querySelectorAll('.txt-en'))
+      {
+        en.style.display = 'inline';
+      }
+      for(let jp of document.querySelectorAll('.txt-jp'))
+      {
+        jp.style.display = 'none';
+      }
+      for(let kr of document.querySelectorAll('.txt-kr'))
+      {
+        kr.style.display = 'none';
+      }
+      currlang = "en";
+    }
+    function koreanLang() {
+      for(let en of document.querySelectorAll('.txt-en'))
+      {
+        en.style.display = 'none';
+      }
+      for(let jp of document.querySelectorAll('.txt-jp'))
+      {
+        jp.style.display = 'none';
+      }
+      for(let kr of document.querySelectorAll('.txt-kr'))
+      {
+        kr.style.display = 'inline';
+      }
+      currlang = "kr";
+    }
+
+    window.onload = function () {
+     if(localStorage.c == "jp") {
+        japaneseLang();
+     } else if (localStorage.c == "kr") {
+       koreanLang();
+     } else {
+        englishLang();
+     }
+    }
+    
+    window.onbeforeunload = function () {
+     localStorage.c = currlang;
+    };
+    </script>
+    <script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var site_data = JSON.parse(this.responseText);
+            var num_arr = site_data.info.views.toString().split("");
+            var num_str = "";
+            for (i = 0; i < num_arr.length; i++) {
+                num_str += num_arr[i];
+                if ( (num_arr.length-1 - i) % 3 == 0 && (num_arr.length-1 - i) != 0 ) {num_str += ",";}
+                var date_str = site_data.info.last_updated;
+                var date_obj = new Date(site_data.info.last_updated);
+                document.getElementById("lastupdate").innerHTML = (date_obj.getMonth()+1) + "-" + date_obj.getDate() + "-" + date_obj.getFullYear();
+            }
+            document.getElementById("hitcount").innerHTML = num_str;
+        }
+    };
+    xhttp.open("GET", "https://weirdscifi.ratiosemper.com/neocities.php?sitename=arcturuswiki", true);
+    xhttp.send();
+    </script>
+
+
+  </head>
+  <body class="vsc-initialized" bgcolor="#ebecf1">
+    <h1><center><span class="txt-en">Welcome to the Arcturus Wiki and Database! </span></center></h1>
+    <h1><center><span class="txt-jp">Arcturus Wiki とデータベースへようこそ! </span></center></h1>
+    <h1><center><span class="txt-kr">Arcturus Wiki 및 데이터베이스에 오신 것을 환영합니다! </span></center></h1>
+    <p> <center>Last Updated: <span id="lastupdate"></span></center></p>
+    <div><center>
+      <button onclick="japaneseLang();"><img src="icons8-japan-30.png" aria-hidden="true"></button>
+      <button onclick="englishLang();"><img src="icons8-usa-30.png" aria-hidden="true"></button>
+      <button onclick="koreanLang();"><img src="icons8-south-korea-30.png" aria-hidden="true"></button>
+    </div>
+
+    
+    <div class="box"> 
+      <img src="wallpaper/wall1.jpg" alt="Arcturus Poster V2">
+    </div> 
+
+    <p><center>Here is the current state of the:</center> 
+      <a href="https://arcturuswiki.neocities.org/arcturus"><center>Database </a>, 
+      <a href="https://arcturuswiki.neocities.org/wiki">Wiki</a>,
+      <a href="https://arcturuswiki.neocities.org/gallery">Gallery</a>,
+      <a href="https://arcturuswiki.neocities.org/howtoplay">How to Install.</a>
+      </center>
+    </p><center>External Links:</center> 
+      <a href="https://www.4gamer.net/games/009/G000977/"><center>4Gamer </a>, 
+      <a href="https://nlab.itmedia.co.jp/games/pc-game/arcturus/index.html">ITMedia</a>,
+      <a href="https://www.falcom.co.jp/arc/">Falcom</a>.
+    <p>
+    </p>
+    <p>You are Visitor #: <span id="hitcount"></span></p>
+  </body>
+</html>

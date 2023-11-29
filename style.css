@@ -1,0 +1,10 @@
+   @font-face {
+    font-family: 'MS-PGothic'; 
+    src: "ms-pgothic.ttf";
+}
+
+body {
+  background-color: "#ebecf1";
+  color: black;
+  font-family: MS-PGothic;
+}

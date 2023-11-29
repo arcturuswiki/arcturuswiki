@@ -1,0 +1,57 @@
+<html><head>
+  <script>
+    let isEnglish;
+
+    function polishLang() {
+      for(let en of document.querySelectorAll('.txt-en'))
+      {
+        en.style.display = 'none';
+      }
+      for(let pl of document.querySelectorAll('.txt-pl'))
+      {
+        pl.style.display = 'inline';
+      }
+      isEnglish = false;
+    }
+    function englishLang() {
+      for(let en of document.querySelectorAll('.txt-en'))
+      {
+        en.style.display = 'inline';
+      }
+      for(let pl of document.querySelectorAll('.txt-pl'))
+      {
+        pl.style.display = 'none';
+      }
+      isEnglish = true;
+    }
+    window.onload = function () {
+      englishLang();
+    }
+    
+    function toggleLang() {
+      if(isEnglish) {
+        polishLang();
+      }
+      else {
+        englishLang();
+      }
+    }
+  </script></head>
+  
+  <body>
+    <div>
+      <button onclick="polishLang();" >&#127482&#127480;</button>
+      <button onclick="englishLang();">english language</button>
+      <button onclick="toggleLang();">toggle</button>
+    </div>
+    <div>
+      <span class="txt-pl">
+        Witaj na mojej stronie!
+      </span>
+      <span class="txt-en">
+        Welcome to my website!
+      </span>
+    </div>
+  
+
+</body></html>
